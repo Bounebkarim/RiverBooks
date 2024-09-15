@@ -1,0 +1,129 @@
+@RiverBooks_WebApi_HostAddress = https://localhost:7113
+
+GET {{RiverBooks_WebApi_HostAddress}}/books/
+Accept: application/json
+
+###
+@BookId = e3f0c672-4c8a-4d88-a379-9c55d7bb91a1
+
+GET {{RiverBooks_WebApi_HostAddress}}/books/{{BookId}}
+Accept: application/json
+
+###
+@Optional_BookId = 3fc255df-42bb-4446-b880-953f848d5fb7
+
+POST {{RiverBooks_WebApi_HostAddress}}/books/ 
+Accept: application/json
+Content-Type: application/json
+{
+  "id": "{{Optional_BookId}}",
+  "title": "The Art of Unit Testing",
+  "author": "Roy Osherove",
+  "price": 30.0
+}
+
+###
+
+@BookToDelete = 3fc255df-42bb-4446-b880-953f848d5fb7
+DELETE {{RiverBooks_WebApi_HostAddress}}/books/{{BookToDelete}}
+Accept: application/json
+
+###
+
+@Optional_BookId = 3fc255df-42bb-4446-b880-953f848d5fb7
+
+PUT {{RiverBooks_WebApi_HostAddress}}/books/{{Optional_BookId}}/pricehistory
+Accept: application/json
+Content-Type: application/json
+{
+  "id": "{{Optional_BookId}}",
+  "NewPrice": -9.99
+}
+
+###
+
+POST {{RiverBooks_WebApi_HostAddress}}/users/
+Accept: application/json
+Content-Type: application/json
+{
+  "Username": "JohnDoe",
+  "Email": "jhondoe@gmail.com",
+  "Password" : "Aa@12345678"
+ }
+ 
+ ###
+ #User login
+POST {{RiverBooks_WebApi_HostAddress}}/users/login
+Accept: application/json
+Content-Type: application/json
+{
+  "Email": "jhondoe@gmail.com",
+  "Password" : "Aa@12345678"
+ }
+
+###
+
+#Add items to cart
+@Token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijg1NGUxOGZkLWI2M2UtNDkzOC04MjJkLTUzYzJiMGEwMjdkYyIsImVtYWlsIjoiamhvbmRvZUBnbWFpbC5jb20iLCJuYmYiOjE3MjU3NDE4MjgsImV4cCI6MTcyNjM0NjYyOCwiaWF0IjoxNzI1NzQxODI4fQ.lQQtdehdzxwS5jW8qfNIOgo2mLPBDhagnjnKVjt7QHA
+
+  
+POST {{RiverBooks_WebApi_HostAddress}}/cart
+Accept: application/json
+Authorization: Bearer {{Token}}
+Content-Type : application/json
+{
+  "BookId": "{{BookId}}",
+  "Quantity": 0
+}
+  
+###
+
+#Get items from cart
+GET {{RiverBooks_WebApi_HostAddress}}/cart
+Accept: application/json
+Authorization: Bearer {{Token}}
+     
+###
+#Get orders of user
+GET {{RiverBooks_WebApi_HostAddress}}/orders
+Accept: application/json
+Authorization: Bearer {{Token}}
+###
+
+@ShippingAdressId=1fa06df1-0020-45f4-a071-b097ce773c20
+@BillingAdressId=1fa06df1-0020-45f4-a071-b097ce773c20
+#checkout cart
+POST {{RiverBooks_WebApi_HostAddress}}/checkout
+Accept: application/json
+Authorization: Bearer {{Token}}
+Content-Type : application/json
+{
+  "BillingAdressId": "{{billingAdressId}}",
+  "ShippingAdressId": "{{shippingAdressId}}"
+}
+###
+#Add address to user
+POST {{RiverBooks_WebApi_HostAddress}}/users/addresses
+Accept: application/json
+Authorization : Bearer {{Token}}
+Content-Type : application/json
+{
+  "Street1": "Rue de la Tunisie4",
+  "Street2": "Rue de la Tunisie4",
+  "City": "Paris",
+  "State": "Ile de France",
+  "Country": "France",
+  "ZipCode": "75001"
+}
+
+###
+#Get addresses of user
+GET {{RiverBooks_WebApi_HostAddress}}/users/addresses
+Accept: application/json
+Authorization : Bearer {{Token}}
+
+###
+#FLUSH memory cache
+POST {{RiverBooks_WebApi_HostAddress}}/flushcache
+Accept: application/json
+    
