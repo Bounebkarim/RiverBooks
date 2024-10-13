@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using MediatR;
 using RiverBooks.Users.Contracts;
 using RiverBooks.Users.Interfaces;
@@ -21,13 +16,13 @@ internal class UserAddressDetailsByIdQueryHandler(IReadOnlyUserStreetAddressRepo
       return Result.NotFound();
     }
 
-    var response = new UserAddressDetails(Guid.Parse(address.UserId), 
-                                          address.Id, 
+    var response = new UserAddressDetails(Guid.Parse(address.UserId),
+                                          address.Id,
                                           address.StreetAddress.Street1,
-                                          address.StreetAddress.Street2, 
-                                          address.StreetAddress.City, 
+                                          address.StreetAddress.Street2,
+                                          address.StreetAddress.City,
                                           address.StreetAddress.State,
-                                          address.StreetAddress.ZipCode, 
+                                          address.StreetAddress.ZipCode,
                                           address.StreetAddress.Country);
     return response;
   }

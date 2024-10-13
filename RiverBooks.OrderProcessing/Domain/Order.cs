@@ -1,6 +1,9 @@
-﻿namespace RiverBooks.OrderProcessing.Domain;
+﻿using RiverBooks.SharedKernel;
+using System.ComponentModel.DataAnnotations.Schema;
 
-internal class Order
+namespace RiverBooks.OrderProcessing.Domain;
+
+internal class Order : IHaveDomainEvents
 {
   public Guid Id { get; set; } = Guid.NewGuid();
   public Guid UserId { get; set; }
@@ -9,6 +12,11 @@ internal class Order
   private readonly List<OrderItem> _orderItems = [];
   public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
   public DateTimeOffset DateCreated { get; private set; } = DateTimeOffset.UtcNow;
+  private readonly List<DomainEventBase> _domainEvents = [];
+  [NotMapped]
+  public IEnumerable<DomainEventBase> DomainEvents => _domainEvents.AsReadOnly();
+  protected void RegisterDomainEvent(DomainEventBase domainEvent) => _domainEvents.Add(domainEvent);
+  void IHaveDomainEvents.ClearDomainEvents() => _domainEvents.Clear();
   public void AddOrderItem(OrderItem orderItem) => _orderItems.Add(orderItem);
 
   internal class Factory
@@ -25,9 +33,10 @@ internal class Order
       {
         order.AddOrderItem(orderItem);
       }
+      var orderCreatedEvent = new OrderCreatedEvent(order);
+      order.RegisterDomainEvent(orderCreatedEvent);
+
       return order;
     }
   }
 }
-
-

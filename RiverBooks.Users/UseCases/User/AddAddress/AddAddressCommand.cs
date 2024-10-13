@@ -4,11 +4,11 @@ using RiverBooks.Users.Domain;
 using RiverBooks.Users.Interfaces;
 using Serilog;
 
-namespace RiverBooks.Users.UseCases.User;
+namespace RiverBooks.Users.UseCases.User.AddAddress;
 
 public record AddAddressCommand(string Email, string Street1, string Street2, string City, string State, string ZipCode, string Country) : IRequest<Result>;
 
-public class AddAddressCommandHandler(IApplicationUserRepository userRepository,ILogger logger) : IRequestHandler<AddAddressCommand, Result>
+public class AddAddressCommandHandler(IApplicationUserRepository userRepository, ILogger logger) : IRequestHandler<AddAddressCommand, Result>
 {
   private readonly IApplicationUserRepository _userRepository = userRepository;
   private readonly ILogger _logger = logger;

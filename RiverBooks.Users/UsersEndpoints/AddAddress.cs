@@ -9,6 +9,7 @@ using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
 using RiverBooks.Users.UseCases.User;
+using RiverBooks.Users.UseCases.User.AddAddress;
 
 namespace RiverBooks.Users.UsersEndpoints;
 public class AddAddress(IMediator mediator) : Endpoint<AddAddressRequest>

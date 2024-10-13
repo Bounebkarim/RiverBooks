@@ -1,12 +1,12 @@
-﻿using System.Net;
+﻿using Ardalis.Result.AspNetCore;
 using FastEndpoints;
-using Microsoft.AspNetCore.Identity;
-using RiverBooks.Users.Domain;
+using MediatR;
+using RiverBooks.Users.UseCases.User.Create;
 
 namespace RiverBooks.Users.UsersEndpoints;
-internal class Create(UserManager<ApplicationUser> userManager) : Endpoint<CreateUserRequest>
+internal class Create(IMediator mediator) : Endpoint<CreateUserRequest>
 {
-  private readonly UserManager<ApplicationUser> _userManager = userManager;
+  private readonly IMediator _mediator = mediator;
 
   public override void Configure()
   {
@@ -16,19 +16,14 @@ internal class Create(UserManager<ApplicationUser> userManager) : Endpoint<Creat
 
   public override async Task HandleAsync(CreateUserRequest req, CancellationToken ct)
   {
-    var newUser = new ApplicationUser
+    var cmd = new CreateUserCommand(req.Email, req.Password);
+    var result = await _mediator.Send(cmd, ct);
+
+    if (!result.IsSuccess)
     {
-       UserName = req.UserName,
-      Email = req.Email
-    };
-    var result =await _userManager.CreateAsync(newUser,req.Password);
-    if (!result.Succeeded)
-    {
-      AddError(string.Concat(result.Errors.Select(e => e.Description)),nameof( HttpStatusCode.BadRequest));
-      await SendErrorsAsync(cancellation: ct);
+      await SendResultAsync(result.ToMinimalApiResult());
       return;
     }
-
     await SendOkAsync(ct);
 
   }

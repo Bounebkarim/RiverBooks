@@ -3,7 +3,7 @@ using MediatR;
 using RiverBooks.Users.Interfaces;
 using RiverBooks.Users.UsersEndpoints;
 
-namespace RiverBooks.Users.UseCases.User;
+namespace RiverBooks.Users.UseCases.User.ListAddresses;
 
 public record ListAddressesQuery(string Email) : IRequest<Result<List<UserAddressDto>>>;
 

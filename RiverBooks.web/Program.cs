@@ -3,7 +3,9 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using RiverBooks.Books;
+using RiverBooks.EmailSending;
 using RiverBooks.OrderProcessing;
+using RiverBooks.Reporting;
 using RiverBooks.SharedKernel;
 using RiverBooks.Users;
 using RiverBooks.Users.UseCases.Cart;
@@ -31,8 +33,10 @@ builder.Services.AddFastEndpoints()
 List<Assembly> mediatrAssemblies = [typeof(RiverBooks.web.Program).Assembly];
 //Add Module Services
 builder.Services.AddBooksServices(builder.Configuration, logger, mediatrAssemblies);
+builder.Services.AddEmailSendingModule(builder.Configuration, logger, mediatrAssemblies);
 builder.Services.AddUsersModule(builder.Configuration, logger, mediatrAssemblies);
 builder.Services.AddOrderProcessingModule(builder.Configuration, logger, mediatrAssemblies);
+builder.Services.AddReportingModuleServices(builder.Configuration, logger, mediatrAssemblies);
 
 //Set up MediatR
 builder.Services.AddMediatR(cfg =>

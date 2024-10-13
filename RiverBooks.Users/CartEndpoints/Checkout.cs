@@ -3,6 +3,7 @@ using Ardalis.Result;
 using FastEndpoints;
 using MediatR;
 using RiverBooks.Users.UseCases.User;
+using RiverBooks.Users.UseCases.User.CheckOut;
 
 namespace RiverBooks.Users.CartEndpoints;
 internal class Checkout(IMediator mediator) : Endpoint<CheckoutRequest, CheckoutResponse>

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RiverBooks.SharedKernel;
 using RiverBooks.Users.Domain;
 using RiverBooks.Users.Infrastructure.Data;
 using RiverBooks.Users.Interfaces;

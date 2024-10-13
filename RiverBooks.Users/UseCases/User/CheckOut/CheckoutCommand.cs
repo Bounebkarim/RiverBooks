@@ -3,7 +3,7 @@ using MediatR;
 using RiverBooks.OrderProcessing.Contracts;
 using RiverBooks.Users.Interfaces;
 
-namespace RiverBooks.Users.UseCases.User;
+namespace RiverBooks.Users.UseCases.User.CheckOut;
 
 internal record CheckoutCommand(string EmailAdress, Guid ShippingAdressId, Guid BillingAdressId)
   : IRequest<Result<Guid>>;

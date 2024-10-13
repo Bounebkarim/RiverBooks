@@ -46,8 +46,8 @@ POST {{RiverBooks_WebApi_HostAddress}}/users/
 Accept: application/json
 Content-Type: application/json
 {
-  "Username": "JohnDoe",
-  "Email": "jhondoe@gmail.com",
+  "Username": "JohnDoe4",
+  "Email": "jhondoe4@gmail.com",
   "Password" : "Aa@12345678"
  }
  
@@ -64,7 +64,7 @@ Content-Type: application/json
 ###
 
 #Add items to cart
-@Token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijg1NGUxOGZkLWI2M2UtNDkzOC04MjJkLTUzYzJiMGEwMjdkYyIsImVtYWlsIjoiamhvbmRvZUBnbWFpbC5jb20iLCJuYmYiOjE3MjU3NDE4MjgsImV4cCI6MTcyNjM0NjYyOCwiaWF0IjoxNzI1NzQxODI4fQ.lQQtdehdzxwS5jW8qfNIOgo2mLPBDhagnjnKVjt7QHA
+@Token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ijg1NGUxOGZkLWI2M2UtNDkzOC04MjJkLTUzYzJiMGEwMjdkYyIsImVtYWlsIjoiamhvbmRvZUBnbWFpbC5jb20iLCJuYmYiOjE3Mjg4MjUxNTEsImV4cCI6MTcyOTQyOTk1MSwiaWF0IjoxNzI4ODI1MTUxfQ.Kd4ePiyHXoDHkGk4U6dKrAd1UDujDuIi4feQI9Bo1h0
 
   
 POST {{RiverBooks_WebApi_HostAddress}}/cart
@@ -73,7 +73,7 @@ Authorization: Bearer {{Token}}
 Content-Type : application/json
 {
   "BookId": "{{BookId}}",
-  "Quantity": 0
+  "Quantity": 5
 }
   
 ###
@@ -125,5 +125,15 @@ Authorization : Bearer {{Token}}
 ###
 #FLUSH memory cache
 POST {{RiverBooks_WebApi_HostAddress}}/flushcache
+Accept: application/json
+###
+  
+#Reporting anti pattern
+GET {{RiverBooks_WebApi_HostAddress}}/topsales?month=10&year=2024
+Accept: application/json
+###
+  
+#Reporting good pattern
+GET {{RiverBooks_WebApi_HostAddress}}/topsales2?month=10&year=2024
 Accept: application/json
     
